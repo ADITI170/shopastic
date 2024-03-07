@@ -1,0 +1,51 @@
+
+<div>
+    <h1>Admin Dashboard</h1>
+    <button class="btn btn-primary" (click)="getUsersData()">Get Users Da-ta</button>
+    <button class="btn btn-primary" (click)="getProductsData()">Get Prod-ucts Data</button>
+    <table *ngIf="showUsersTable &&users.length" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Mobile</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.address }}</td>
+          <td>{{ user.mobile }}</td>
+          <td><button (click)="deleteUser(user.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="showProductsTable &&products.length" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>    ProductCategory</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Offers</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product.title }}</td>
+                <td><input [(ngModel)]="product.description" [readonly]="product.id !== editProductId" /></td>
+                <td><input [(ngModel)]="product.price" [readonly]="product.id !== editProductId" /></td>
+                <td><input [(ngModel)]="product.quantity" type="number" [readonly]="product.id !== editProductId" /></td>
+                <td>{{ product.productCategory.category }}</td>
+                <td><button *ngIf="product.id !== editProductId" (click)="startEditing(product.id)">Edit</button></td>
+                <td>
+                  <button *ngIf="product.id === editProductId" (click)="saveChanges(product.id)">Save</button>
+                  <button *ngIf="product.id === editProductId" (click)="cancelEditing()">Cancel</button>
+                  <button (click)="DelProd(product.id)">Delete</button>
+                </td>
+              </tr>
+        </tbody>
+      </table>
+
+  </div>
